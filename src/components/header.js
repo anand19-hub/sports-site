@@ -10,7 +10,7 @@ import {
 import Login from "../screens/login";
 import Home from "../screens/home";
 import Signup from "../screens/signup";
-
+const img2 = require('../asserts/images/logo02.png');
 
 class header extends Component {
 
@@ -27,13 +27,17 @@ class header extends Component {
             <div class="header">
                 <ul id="menu">
                     <ul>
-                        <center>
+
+                        <div className='center'>
+                            {/*<li ><Link to='/'><img src={img2} class='logo'/></Link></li>*/}
+                            <center>
                             <li> <Link to="/">Home</Link> </li>
-                            <li> <a href="#">Works</a> </li>
+                            <li> <a href="#">Player</a> </li>
                             <li> <a href="#">About</a> </li>
                             <li> <Link to="/signup">Sign Up</Link> </li>
                             <li><Link to="/login">Sign In</Link> </li>
-                        </center>
+                            </center>
+                        </div>
                     </ul>
                 </ul>
             </div>

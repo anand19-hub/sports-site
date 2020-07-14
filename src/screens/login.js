@@ -2,7 +2,15 @@
 import React, { Component } from 'react';
 import '../style/login.css';
 import $ from 'jquery';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 import {Col,Row} from "react-bootstrap";
+import Home from "./home";
+import Signup from "./signup";
 const img1 = require('../asserts/images/fb.png');
 const img2 = require('../asserts/images/google.png');
 class Login extends Component{
@@ -36,6 +44,30 @@ class Login extends Component{
       });
         
         
+    }  componentDidMount(){
+
+        $(".textbox input").focusout(function(){
+            if($(this).val() == ""){
+                $(this).siblings().removeClass("hidden");
+                $(this).css("background","#554343");
+            }else{
+                $(this).siblings().addClass("hidden");
+                $(this).css("background","#484848");
+            }
+        });
+
+        $(".textbox input").keyup(function(){
+            var inputs = $(".textbox input");
+            if(inputs[0].value != "" && inputs[1].value){
+                $(".login-btn").attr("disabled",false);
+                $(".login-btn").addClass("active");
+            }else{
+                $(".login-btn").attr("disabled",true);
+                $(".login-btn").removeClass("active");
+            }
+        });
+
+
     }
       render() {
         return (
@@ -83,7 +115,7 @@ class Login extends Component{
       </form>
       <div class="dont-have-account">
               Don't have an account?
-              <a href="#">Sign Up</a>
+              <Link to='/signup'>Sign Up</Link>
             </div>
         </div>
 
@@ -92,8 +124,13 @@ class Login extends Component{
 
   </Row>
   </div>
-              
+              <Switch>
+                  <Route exact path="/signup">
+                      <Signup name={'blue'}/>
+                  </Route>
+              </Switch>
           </div>
+
         );
       }
 
