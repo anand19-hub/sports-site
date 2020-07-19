@@ -87,7 +87,7 @@ class Login extends Component{
       
       <form action="">
         <div class="textbox">
-          <input type="text" placeholder="Username Or Email"/>
+          <input type="text" placeholder="Username Or Email" className=""/>
           <span class="check-message hidden">Required</span>
         </div>
 

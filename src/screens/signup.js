@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Home from "./home";
 import Login from "./login";
+import '../style/signup.css';
 const img1 = require('../asserts/images/fb.png');
 const img2 = require('../asserts/images/google.png');
 
@@ -21,87 +22,87 @@ class Signup extends Component{
         };
     }
     componentDidMount(){
+        const switchers = [...document.querySelectorAll('.switcher')];
 
-        $(".textbox input").focusout(function(){
-            if($(this).val() == ""){
-                $(this).siblings().removeClass("hidden");
-                $(this).css("background","#554343");
-            }else{
-                $(this).siblings().addClass("hidden");
-                $(this).css("background","#484848");
-            }
-        });
-
-        $(".textbox input").keyup(function(){
-            var inputs = $(".textbox input");
-            if(inputs[0].value != "" && inputs[1].value){
-                $(".login-btn").attr("disabled",false);
-                $(".login-btn").addClass("active");
-            }else{
-                $(".login-btn").attr("disabled",true);
-                $(".login-btn").removeClass("active");
-            }
-        });
+        switchers.forEach(item => {
+            item.addEventListener('click', function() {
+                switchers.forEach(item => item.parentElement.classList.remove('is-active'));
+                this.parentElement.classList.add('is-active')
+            })
+        })
 
 
     }
     render() {
         return (
             <div className="body">
-                <div className="container-fluid">
-                    <Row>
-                        <Col></Col>
-                        <Col></Col>
-                        <Col>
-                            <div className="login-form">
-                                <div className="social-media">
-                                    <button className="fb"><img src={img1} alt=""/></button>
-                                    <button className="google"><img src={img2} alt=""/></button>
-
-                                </div>
-                                <h6>Sign Up</h6>
-
-                                <form action="">
-                                    <div className="textbox">
-                                        <input type="text" placeholder="Firstname"/>
-                                        <span className="check-message hidden">Required</span>
+                <section className="forms-section">
+                    <h1 className="section-title">GETTING STARTED HERE</h1>
+                    <div className="forms">
+                        <div className="form-wrapper is-active">
+                            <button type="button" className="switcher switcher-login">
+                                Player
+                                <span className="underline"></span>
+                            </button>
+                            <form className="form form-login">
+                                <fieldset>
+                                    <legend>Please, enter your email, password and password confirmation for sign up.
+                                    </legend>
+                                    <div className="input-block">
+                                        <label htmlFor="signup-email">First name</label>
+                                        <input id="signup-email" type="email" required/>
                                     </div>
-                                    <div className="textbox">
-                                        <input type="email" placeholder="Email"/>
-                                        <span className="check-message hidden">Required</span>
+                                    <div className="input-block">
+                                        <label htmlFor="signup-email">Last name</label>
+                                        <input id="signup-email" type="email" required/>
                                     </div>
-
-                                    <div className="textbox">
-                                        <input type="password" placeholder="Password"/>
-                                        <span className="check-message hidden">Required</span>
+                                    <div className="input-block">
+                                        <label htmlFor="signup-email">E-mail</label>
+                                        <input id="signup-email" type="email" required/>
                                     </div>
-
-                                    <div className="options">
-                                        <label className="remember-me">
-            <span className="checkbox">
-              <input type="checkbox"/>
-              <span className="checked"></span>
-            </span>
-                                            Remember me
-                                        </label>
+                                    <div className="input-block">
+                                        <label htmlFor="signup-password">Password</label>
+                                        <input id="signup-password" type="password" required/>
                                     </div>
-
-                                    <input type="submit" value="Log In Now" className="login-btn" disabled/>
-                                    <div className="privacy-link">
-                                        <a href="#">Privacy Policy</a>
+                                    <div className="input-block">
+                                        <label htmlFor="signup-password-confirm">Confirm password</label>
+                                        <input id="signup-password-confirm" type="password" required/>
                                     </div>
-                                </form>
-                                <div className="dont-have-account">
-                                    Do you have an account?
-                                    <Link to='/login'>Sign In</Link>
-                                </div>
-                            </div>
-
-                        </Col>
-
-
-                    </Row>
-                </div>
+                                </fieldset>
+                                <button type="submit" className="btn-signup">Continue</button>
+                            </form>
+                        </div>
+                        <div className="form-wrapper">
+                            <button type="button" className="switcher switcher-signup">
+                                Organizer
+                                <span className="underline"></span>
+                            </button>
+                            <form className="form form-signup">
+                                <fieldset>
+                                    <legend>Please, enter your email, password and password confirmation for sign up.
+                                    </legend>
+                                    <div className="input-block">
+                                        <label htmlFor="signup-email">Organization name</label>
+                                        <input id="signup-email" type="email" required/>
+                                    </div>
+                                    <div className="input-block">
+                                        <label htmlFor="signup-email">E-mail</label>
+                                        <input id="signup-email" type="email" required/>
+                                    </div>
+                                    <div className="input-block">
+                                        <label htmlFor="signup-password">Password</label>
+                                        <input id="signup-password" type="password" required/>
+                                    </div>
+                                    <div className="input-block">
+                                        <label htmlFor="signup-password-confirm">Confirm password</label>
+                                        <input id="signup-password-confirm" type="password" required/>
+                                    </div>
+                                </fieldset>
+                                <button type="submit" className="btn-signup">Continue</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
                 <Switch>
                     <Route exact path="/login">
                         <Login />
