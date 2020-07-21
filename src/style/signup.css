@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-}
+
 .forms-section {
     display: flex;
     flex-direction: column;
@@ -113,7 +110,7 @@
 
 .form {
     overflow: hidden;
-    min-width: 260px;
+    min-width: 300px;
     margin-top: 50px;
     padding: 30px 25px;
     border-radius: 5px;
@@ -235,7 +232,7 @@
 
 .input-block input {
     display: block;
-    width: 100%;
+    width: 90%;
     margin-top: 8px;
     padding-right: 15px;
     padding-left: 15px;

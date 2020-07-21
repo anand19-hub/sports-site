@@ -7,7 +7,6 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import Home from "./home";
 import Login from "./login";
 import '../style/signup.css';
 const img1 = require('../asserts/images/fb.png');

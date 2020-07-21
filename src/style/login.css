@@ -1,5 +1,4 @@
 
-  
   div.body{
    background:url('../asserts/images/475974.jpg') blue;
     min-height: 100vh;
@@ -9,7 +8,7 @@
   }
   
   .login-form{
-    width: 470px;
+    width: 370px;
     background: #202020;
     padding: 30px 60px;
   }
