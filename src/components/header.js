@@ -6,7 +6,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
-
+import Admin from "../layouts/Admin";
 import Login from "../screens/login";
 import Home from "../screens/home";
 import Signup from "../screens/signup";
@@ -32,9 +32,9 @@ class header extends Component {
                         <div className='center'>
                             {/*<li ><Link to='/'><img src={img2} class='logo'/></Link></li>*/}
                             <center>
-                            <li> <Link to="/">Home</Link> </li>
+                            <li> <Link to="/home">Home</Link> </li>
                             <li> <a href="/works">Player</a> </li>
-                            <li> <a href="#">About</a> </li>
+                            <li> <Link to="">About</Link> </li>
                             <li> <Link to="/signup">Sign Up</Link> </li>
                             <li><Link to="/login">Sign In</Link> </li>
                             </center>
@@ -44,7 +44,7 @@ class header extends Component {
             </div>
 
                 <Switch>
-                    <Route exact path="/">
+                    <Route exact path="/home">
                         <Home name={'red'}/>
                     </Route>
                     <Route exact path="/signup">
