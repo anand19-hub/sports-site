@@ -12,7 +12,7 @@ import Language from "@material-ui/icons/Language";
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import Post from "views/Post/Post";
 import Schedule from "views/Schedule/Schedule";
-import UserProfile from "views/UserProfile/UserProfile.js";
+import OrganizationProfile from "views/OrganizationProfile/OrganizationProfile";
 import TableList from "views/TableList/TableList.js";
 import Typography from "views/Typography/Typography.js";
 import Icons from "views/Icons/Icons.js";
@@ -33,6 +33,14 @@ const dashboardRoutes = [
   // },
   {
     path: "/dashboard",
+    name: "Organization",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: Person,
+    component: OrganizationProfile,
+    layout: "/admin"
+  },
+  {
+    path: "/post",
     name: "Post",
     rtlName: "لوحة القيادة",
     icon: Dashboard,
