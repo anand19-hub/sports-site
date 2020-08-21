@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
@@ -20,33 +20,40 @@ import logo from "../assets/img/reactlogo.png";
 
 let ps;
 
-const switchRoutes = (
-    <Switch>
-        {routes.map((prop, key) => {
-            if (prop.layout === "/player") {
-                return (
-                    <Route
-                        path={prop.layout + prop.path}
-                        component={prop.component}
-                        key={key}
-                    />
-                );
-            }
-            return null;
-        })}
-        <Redirect from="/player" to="/player/dashboard" />
-    </Switch>
-);
+// const switchRoutes = (
+//     <Switch>
+//         {routes.map((prop, key) => {
+//             if (prop.layout === "/player") {
+//                 return (
+//                     <Route
+//                         path={prop.layout + prop.path}
+//                         component={prop.component}
+//                         key={key}
+//                     />
+//                 );
+//             }
+//             return null;
+//         })}
+//         <Redirect from="/player" to="/player/dashboard"  />
+//     </Switch>
+// );
 
 const useStyles = makeStyles(styles);
 
-export default function Admin({ ...rest }) {
+export default function Player(props,{ ...rest }) {
+    useEffect(() => {
+        if(props.location.state){
+            console.log('player',props.location.state.details);
+            setDetails(props.location.state.details);
+        }
+    });
     // styles
     const classes = useStyles();
     // ref to help us initialize PerfectScrollbar on windows devices
     const mainPanel = React.createRef();
     // states and functions
     const [image, setImage] = React.useState(bgImage);
+    const [details, setDetails] = React.useState('');
     const [color, setColor] = React.useState("green");
     const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -92,6 +99,25 @@ export default function Admin({ ...rest }) {
             window.removeEventListener("resize", resizeFunction);
         };
     }, [mainPanel]);
+
+    function switchRoutes() {
+      return(  <Switch>
+          {routes.map((prop, key) => {
+              if (prop.layout === "/player") {
+                  return (
+                      <Route
+                          path={prop.layout + prop.path}
+                          component={prop.component}
+                          key={key}
+                      />
+                  );
+              }
+              return null;
+          })}
+          <Redirect from="/player" to="/player/dashboard"  />
+      </Switch>)
+    }
+
     return (
         <div className={classes.wrapper}>
             <Sidebar
@@ -102,7 +128,9 @@ export default function Admin({ ...rest }) {
                 handleDrawerToggle={handleDrawerToggle}
                 open={mobileOpen}
                 color={color}
+                details={details}
                 {...rest}
+
             />
             <div className={classes.mainPanel} ref={mainPanel}>
 
@@ -114,7 +142,7 @@ export default function Admin({ ...rest }) {
                 {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
                 {getRoute() ? (
                     <div className={classes.content}>
-                        <div className={classes.container}>{switchRoutes}</div>
+                        <div className={classes.container}>{switchRoutes()}</div>
                     </div>
                 ) : (
                     <div className={classes.map}>{switchRoutes}</div>

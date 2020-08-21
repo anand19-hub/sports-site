@@ -10,16 +10,14 @@ import Header from "components/header.js";
 import RTL from "layouts/RTL.js";
 
 import "assets/css/material-dashboard-react.css?v=1.9.0";
+import routeHome from "./screens/routeHome";
 
 const hist = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
-      <Route path="/admin" component={Admin} />
-      <Route path="/player" component={Player} />
-      <Route path="/home" component={Header} />
-      <Route path="/rtl" component={RTL} />
+      <Route path="/home" component={routeHome} />
       {/*<Redirect from="/" to="/admin/dashboard" />*/}
       <Redirect from="/" to="/home" />
     </Switch>

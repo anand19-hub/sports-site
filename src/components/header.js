@@ -4,13 +4,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,withRouter
 } from "react-router-dom";
-import Admin from "../layouts/Admin";
-import Login from "../screens/login";
-import Home from "../screens/home";
-import Signup from "../screens/signup";
-import contact from "./contact";
 const img2 = require('../asserts/images/logo02.png');
 
 class header extends Component {
@@ -24,7 +19,6 @@ class header extends Component {
 
     render() {
         return (
-            <Router>
             <div class="header">
                 <ul id="menu">
                     <ul>
@@ -42,22 +36,6 @@ class header extends Component {
                     </ul>
                 </ul>
             </div>
-
-                <Switch>
-                    <Route exact path="/home">
-                        <Home name={'red'}/>
-                    </Route>
-                    <Route exact path="/signup">
-                        <Signup />
-                    </Route>
-                    <Route exact path="/login">
-                        <Login />
-                    </Route>
-                    <Route exact path="/works">
-                        <contact />
-                    </Route>
-                </Switch>
-            </Router>
         )
     }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../style/home.css';
+import Header from "../components/header";
 const img1 = require('../asserts/images/ball.png');
 const img2= require('../asserts/images/player.png');
 class Home extends Component{
@@ -11,6 +12,8 @@ class Home extends Component{
     }
     render() {
         return (
+            <div>
+                <Header/>
             <div className='back-gr'>
                 <img src={img2}/>
                 <img src={img1} className='ball'/>
@@ -31,6 +34,7 @@ class Home extends Component{
                             </ul>
                         </div>
                     </div>
+            </div>
             </div>
         );
                 }

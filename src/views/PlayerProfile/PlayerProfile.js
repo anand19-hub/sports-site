@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -14,6 +14,7 @@ import CardBody from "../../components/Card/CardBody.js";
 import CardFooter from "../../components/Card/CardFooter.js";
 
 import avatar from "../../assets/img/faces/marc.jpg";
+import bgImage from "../../assets/img/sidebar-2.jpg";
 
 const styles = {
     cardCategoryWhite: {
@@ -36,7 +37,19 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function PlayerProfile() {
+export default function PlayerProfile(props) {
+    useEffect(() => {
+
+        if(props.location.state){
+            console.log(props.location.state.pass);
+
+        }else{
+            console.log(props.location.state.pass);
+            console.log('no');
+        }
+        console.log(id);
+    });
+    const [id, setID] = React.useState('');
     const classes = useStyles();
     return (
         <div>
@@ -49,7 +62,7 @@ export default function PlayerProfile() {
                             </a>
                         </CardAvatar>
                         <CardBody profile>
-                            <h6 className={classes.cardCategory}>Player</h6>
+                            <h6 className={classes.cardCategory}>{'k'}</h6>
                             <h4 className={classes.cardTitle}>Alec Thompson</h4>
                             <p className={classes.description}>
                                 Don{"'"}t be scared of the truth because we need to restart the

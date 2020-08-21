@@ -1,4 +1,5 @@
-import React from "react";
+import React ,{useEffect,useState}from "react";
+import { BrowserRouter as Router,Switch,useHistory,Route } from 'react-router-dom';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -48,6 +49,10 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function Schedule() {
+    let history=useHistory();
+    useEffect(() => {
+        console.log();
+    });
     const classes = useStyles();
     return (
         <div>

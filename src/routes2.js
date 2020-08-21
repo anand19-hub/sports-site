@@ -13,6 +13,7 @@ import DashboardPage from "views/Dashboard/Dashboard.js";
 import Post from "views/Post/Post";
 import Schedule from "views/Schedule/Schedule";
 import PlayerProfile from "views/PlayerProfile/PlayerProfile";
+import PlayerPost from "views/PlayerPost/PlayerPost";
 import TableList from "views/TableList/TableList.js";
 import Typography from "views/Typography/Typography.js";
 import Icons from "views/Icons/Icons.js";
@@ -40,11 +41,11 @@ const dashboardRoutes2 = [
       layout: "/player"
     },
     {
-        path: "/schedule",
-        name: "Schedule",
+        path: "/posts",
+        name: "Posts",
         rtlName: "لوحة القيادة",
         icon: AccessTime,
-        component: Schedule,
+        component: PlayerPost,
         layout: "/player"
     },
 

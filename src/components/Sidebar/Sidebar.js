@@ -25,7 +25,7 @@ export default function Sidebar(props) {
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
-  const { color, logo, image, logoText, routes } = props;
+  const { color, logo, image, logoText, routes,details } = props;
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
@@ -46,10 +46,11 @@ export default function Sidebar(props) {
         });
         return (
           <NavLink
-            to={prop.layout + prop.path}
+            to={{pathname:prop.layout + prop.path,state: { pass: details }}}
             className={activePro + classes.item}
             activeClassName="active"
             key={key}
+
           >
             <ListItem button className={classes.itemLink + listItemClasses}>
               {typeof prop.icon === "string" ? (
