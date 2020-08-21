@@ -267,20 +267,11 @@ export default function PlayerPost(props) {
                                                           <GridItem xs={6} sm={6} md={6}>
                                                               <Input
                                                                   labelText={'Player '+(i+1)+' Name'}
-                                                                  id="first-name"
+                                                                  id="Player name"
                                                                   formControlProps={{
                                                                       fullWidth: true
                                                                   }}
-                                                                  onChange={event => setteamPlayer([...teamPlayer,event.target.value])}
-                                                              />
-                                                          </GridItem>
-                                                          <GridItem xs={6} sm={6} md={6}>
-                                                              <Input
-                                                                  labelText={'Player '+(i+1)+' Details'}
-                                                                  id="last-name"
-                                                                  formControlProps={{
-                                                                      fullWidth: true
-                                                                  }}
+                                                                  onChange={(event) => setteamPlayer([...teamPlayer,event.target.value])}
                                                               />
                                                           </GridItem>
                                                       </GridContainer>
