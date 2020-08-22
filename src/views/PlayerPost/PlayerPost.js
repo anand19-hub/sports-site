@@ -175,6 +175,10 @@ export default function PlayerPost(props) {
            setNew1(true);
         }
     }
+
+   function handleChange(e) {
+      setteamPlayer([...e.target.value]);
+   }
     return (
         <div>
             <SearchBar
@@ -268,10 +272,7 @@ export default function PlayerPost(props) {
                                                               <Input
                                                                   labelText={'Player '+(i+1)+' Name'}
                                                                   id="Player name"
-                                                                  formControlProps={{
-                                                                      fullWidth: true
-                                                                  }}
-                                                                  onChange={(event) => setteamPlayer([...teamPlayer,event.target.value])}
+                                                                  onChange={(event) => handleChange(event)}
                                                               />
                                                           </GridItem>
                                                       </GridContainer>
