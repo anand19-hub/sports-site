@@ -2,7 +2,6 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import React, {Component} from 'react';
 import Admin from "../layouts/Admin";
 import Player from "../layouts/Player";
-import Header from "../components/header";
 import {createBrowserHistory} from "history";
 import Home from "./home";
 import Signup from "./signup";
@@ -29,7 +28,6 @@ class routeHome extends Component{
                 <Route exact path="/works">
                     <contact />
                 </Route>
-                {/*<Redirect from="/" to="/admin/dashboard" />*/}
                 <Redirect from="/" to="/home" />
             </Switch>
         </Router>);

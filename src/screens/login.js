@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import "../style/login.css";
 import $ from 'jquery';
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
     Link,
-    Redirect,
-    useHistory,
     withRouter
 } from "react-router-dom";
 import {Col, Row} from "react-bootstrap";
@@ -32,7 +28,7 @@ class Login extends Component {
 
     componentDidMount() {
         $(".textbox input").focusout(function () {
-            if ($(this).val() == "") {
+            if ($(this).val() === "") {
                 $(this).siblings().removeClass("hidden");
                 $(this).css("background", "#554343");
             } else {
@@ -42,8 +38,8 @@ class Login extends Component {
         });
 
         $(".textbox input").keyup(function () {
-            var inputs = $(".textbox input");
-            if (inputs[0].value != "" && inputs[1].value) {
+            const inputs = $(".textbox input");
+            if (inputs[0].value !== "" && inputs[1].value) {
                 $(".login-btn").attr("disabled", false);
                 $(".login-btn").addClass("active");
             } else {
@@ -91,23 +87,23 @@ class Login extends Component {
         return (
             <div>
                 <Header/>
-                <div class="body">
-                <div class="container-fluid">
+                <div className="body">
+                <div className="container-fluid">
                     <Row>
                         <Col></Col>
                         <Col></Col>
                         <Col>
-                            <div class="login-form">
+                            <div className="login-form">
                                 <div class="social-media">
-                                    <button class="fb"  onClick={()=>console.log('hi')}><img src={img1} alt=""/></button>
-                                    <button class="google"><img src={img2} alt=""/></button>
+                                    <button className="fb"  onClick={()=>console.log('hi')}><img src={img1} alt=""/></button>
+                                    <button className="google"><img src={img2} alt=""/></button>
 
                                 </div>
                                 <h6>Sign In</h6>
 
-                                    <div class="textbox">
+                                    <div className="textbox">
                                         <input type="text" placeholder="Username Or Email" className=""  onChange={(value)=>this.setState({username:value.target.value})}/>
-                                        <span class="check-message hidden">Required</span>
+                                        <span className="check-message hidden">Required</span>
                                     </div>
 
                                     <div class="textbox">
@@ -116,7 +112,7 @@ class Login extends Component {
                                     </div>
 
                                     <div class="options">
-                                        <label class="remember-me">
+                                        <label className="remember-me">
             <span class="checkbox">
               <input type="checkbox"/>
               <span class="checked"/>
@@ -124,12 +120,12 @@ class Login extends Component {
                                             Remember me
                                         </label>
 
-                                        <a href="#">Forgot Your Password</a>
+                                        <a >Forgot Your Password</a>
                                     </div>
                                     <button  className="login-btn"  onClick={()=>this.login()}>Log In
                                     </button>
                                     <div class="privacy-link">
-                                        <a href="#">Privacy Policy</a>
+                                        <a >Privacy Policy</a>
                                     </div>
                                 <div class="dont-have-account">
                                     Don't have an account?

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useEffect} from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
@@ -9,7 +9,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "../components/Navbars/Navbar.js";
 import Footer from "../components/Footer/Footer.js";
 import Sidebar from "../components/Sidebar/Sidebar.js";
-import FixedPlugin from "../components/FixedPlugin/FixedPlugin.js";
 
 import routes from "../routes2";
 
@@ -20,23 +19,6 @@ import logo from "../assets/img/reactlogo.png";
 
 let ps;
 
-// const switchRoutes = (
-//     <Switch>
-//         {routes.map((prop, key) => {
-//             if (prop.layout === "/player") {
-//                 return (
-//                     <Route
-//                         path={prop.layout + prop.path}
-//                         component={prop.component}
-//                         key={key}
-//                     />
-//                 );
-//             }
-//             return null;
-//         })}
-//         <Redirect from="/player" to="/player/dashboard"  />
-//     </Switch>
-// );
 
 const useStyles = makeStyles(styles);
 

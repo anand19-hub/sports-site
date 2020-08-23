@@ -15,8 +15,8 @@ class Home extends Component{
             <div>
                 <Header/>
             <div className='back-gr'>
-                <img src={img2}/>
-                <img src={img1} className='ball'/>
+                <img src={img2} alt={'n'}/>
+                <img src={img1} className='ball' alt={'n'}/>
 
 
                     <div className="content">

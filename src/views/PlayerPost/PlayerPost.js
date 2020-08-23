@@ -5,21 +5,15 @@ import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
 import Button from "../../components/CustomButtons/Button.js";
 import Card from "../../components/Card/Card.js";
-import CardAvatar from "../../components/Card/CardAvatar.js";
 import CardBody from "../../components/Card/CardBody.js";
 import '../../style/PlayerPost.css';
-import avatar from "../../assets/img/faces/marc.jpg";
 import Modal from "@material-ui/core/Modal";
 import Fade from "@material-ui/core/Fade";
 import CardHeader from "../../components/Card/CardHeader";
-import CustomInput from "../../components/CustomInput/CustomInput";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import CardFooter from "../../components/Card/CardFooter";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import NativeSelect from "@material-ui/core/NativeSelect";
-import {object} from "prop-types";
 import {BASE_URL} from "../../actions";
 import SearchBar from "material-ui-search-bar";
 import Input from "@material-ui/core/Input/Input";
@@ -104,9 +98,6 @@ export default function PlayerPost(props) {
                 (result) => {
                     setEvents(result);
                 },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
                 (error) => {
                 }
             )
@@ -261,9 +252,6 @@ export default function PlayerPost(props) {
                 (result) => {
                     setSchdule(result);
                 },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
                 (error) => {
                     console.log(error)
                 }
@@ -281,9 +269,6 @@ export default function PlayerPost(props) {
                         return value.toLocaleLowerCase()===data.eventName.toLocaleLowerCase() || value.toLocaleLowerCase() ===data.eventLocation.toLocaleLowerCase()
                     }));
                 },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
                 (error) => {
                 }
             );

@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
 import '../style/header.css';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,withRouter
+    Link
 } from "react-router-dom";
-const img2 = require('../asserts/images/logo02.png');
 
 class header extends Component {
 
@@ -19,7 +15,7 @@ class header extends Component {
 
     render() {
         return (
-            <div class="header">
+            <div className="header">
                 <ul id="menu">
                     <ul>
 

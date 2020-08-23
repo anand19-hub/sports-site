@@ -1,13 +1,5 @@
 import React, {Component} from 'react';
 import '../style/contact.css';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
-
-
 class contact extends Component {
     render() {
         return (

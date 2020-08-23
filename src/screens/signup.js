@@ -1,20 +1,13 @@
 import React, {Component} from 'react';
-import {Col, Row} from "react-bootstrap";
-import $ from "jquery";
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
-    Link
 } from "react-router-dom";
 import Header from "../components/header";
 import Login from "./login";
 import '../style/signup.css';
 import {BASE_URL} from "../actions";
 import SweetAlert from "react-bootstrap-sweetalert/dist";
-
-const img1 = require('../asserts/images/fb.png');
-const img2 = require('../asserts/images/google.png');
 
 class Signup extends Component {
     constructor() {
@@ -150,7 +143,6 @@ class Signup extends Component {
             lastname,
             email,
             password,
-            cpassword
         } = this.state;
         if (firstname !== '' && lastname !== '' && email !== '' && password !== '') {
             let body = JSON.stringify({
