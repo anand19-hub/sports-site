@@ -23,6 +23,7 @@ import {object} from "prop-types";
 import {BASE_URL} from "../../actions";
 import SearchBar from "material-ui-search-bar";
 import Input from "@material-ui/core/Input/Input";
+import SweetAlert from "react-bootstrap-sweetalert/dist";
 const styles = {
     cardCategoryWhite: {
         color: "rgba(255,255,255,.62)",
@@ -53,9 +54,11 @@ const useStyles = makeStyles(styles);
 export default function PlayerPost(props) {
 
     useEffect(() => {
+        getSchdule();
         if(new1){
             if(new1){
                 getEvents();
+
             }
 
         }
@@ -63,6 +66,7 @@ export default function PlayerPost(props) {
     });
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [open2, setOpen2] = React.useState(false);
     const [state, setState] = React.useState({
         count: 0,
     });
@@ -75,6 +79,8 @@ export default function PlayerPost(props) {
     const [vcapName, setvcapName] = React.useState('');
     const [teamCNumber, setteamCNumber] = React.useState('');
     const [teamPlayer, setteamPlayer] = React.useState([]);
+    const [show,setShow]=useState(false);
+    const [show2,setShow2]=useState(false);
     const handleOpen = (id) => {
         setOpen(true);
         setEventId(id);
@@ -82,6 +88,10 @@ export default function PlayerPost(props) {
     const handleClose = () => {
         setOpen(false);
     };
+    const handleClose2 = () => {
+        setOpen2(false);
+    };
+    const [schdule,setSchdule]=useState('');
     const changeMembers = (event) => {
         console.log(event.target.value);
         setState({count:parseInt(event.target.value)});
@@ -102,7 +112,28 @@ export default function PlayerPost(props) {
             )
     }
     function postDetails() {
-        console.log(teamPlayer);
+        let body=JSON.stringify({
+            event_id:eventId,
+            teamName:teamName,
+            captianName:capName,
+            viceCaptianName:vcapName,
+            teamContactNumber:teamCNumber,
+            otherPlayers:teamPlayer.toString()
+        });
+        return fetch(BASE_URL + "event/"+1+"/team", {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: body
+        }).then(response => response.json()).then((response)=>{
+          console.log(response);
+          setShow(true);
+        }).catch((error)=>{
+            console.log(error);
+            setShow2(true);
+        })
 
     }
     function renderData() {
@@ -113,15 +144,15 @@ export default function PlayerPost(props) {
                       <GridItem xs={12} sm={12} md={12}>
                           <Card profile>
                               <CardBody profile>
-                                  <h6 className={classes.cardCategory}>{a.eventName}</h6>
+                                  <h6 className={classes.cardCategory}>Event Name:{a.eventName}</h6>
                                   <p xs={12} sm={12} md={4}>
-                                      {a.eventDate}
+                                     Event Date: {a.eventDate}
                                   </p>
                                   <p xs={12} sm={12} md={4}>
-                                      {a.eventLocation}
+                                      Event Location:   {a.eventLocation}
                                   </p>
                                   <p className={classes.description}>
-                                      {a.eventDescription}
+                                      Event Description:    {a.eventDescription}
                                   </p>
                                   <Button color="#2196f3" className='join' onClick={()=>handleOpen(a.id)} round>
                                       Join
@@ -132,7 +163,16 @@ export default function PlayerPost(props) {
                                   <Button color="primary" className='share' round>
                                       Share
                                   </Button>
+                                  <Button color="info" className='share' round onClick={()=>{setOpen2(true)}}>
+                                      Schedule
+                                  </Button>
                               </CardBody>
+                              <SweetAlert success title="Success!" show={show} onConfirm={()=>{setShow(false)}} onCancel={()=>{setShow(false)}}>
+                                  Team joined
+                              </SweetAlert>
+                              <SweetAlert danger title="sorry!" show={show2} onConfirm={()=>{setShow2(false)}} onCancel={()=>{setShow2(false)}}>
+                                  Team not joined
+                              </SweetAlert>
                           </Card>
                       </GridItem>
                   </GridContainer>
@@ -152,7 +192,83 @@ export default function PlayerPost(props) {
       })
 
     }
+    function renderS() {
+        if(schdule){
+            return  schdule.map((a,index)=>{
+                if(a!==null){
+                    return(
+                        <GridContainer key={index}>
+                            <GridItem xs={12} sm={12} md={12}>
+                                <Card profile>
+                                    <CardBody profile>
+                                        <h6 className={classes.cardCategory}>First Team:{a.first_team}</h6>
+                                        <h6 className={classes.cardCategory}>Second Team:{a.second_team}</h6>
+                                        <p xs={12} sm={12} md={4}>
+                                            Event Date: {a.eventDate}
+                                        </p>
+                                        <p xs={12} sm={12} md={4}>
+                                            Event Location:   {a.eventDate}
+                                        </p>
+                                        <p className={classes.description}>
+                                            Event Description:    {a.eventtime}
+                                        </p>
+                                        <p className={classes.description}>
+                                            Event Description:    {a.eventLocation}
+                                        </p>
+                                    </CardBody>
+                                    <SweetAlert success title="Success!" show={show} onConfirm={()=>{setShow(false)}} onCancel={()=>{setShow(false)}}>
+                                        Team joined
+                                    </SweetAlert>
+                                    <SweetAlert danger title="sorry!" show={show2} onConfirm={()=>{setShow2(false)}} onCancel={()=>{setShow2(false)}}>
+                                        Team not joined
+                                    </SweetAlert>
+                                </Card>
+                            </GridItem>
+                        </GridContainer>
+                    )
+                }else{
+                    return (  <GridContainer key={index}>
+                        <GridItem xs={12} sm={12} md={12}>
+                            <Card profile>
+                                <CardBody profile>
+                                    <h6 className={classes.cardCategory}>{'There are no schedule here'}</h6>
+                                </CardBody>
+                            </Card>
+                        </GridItem>
+                    </GridContainer>)
+                }
 
+            })
+        }else{
+            return (  <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                    <Card profile>
+                        <CardBody profile>
+                            <h6 className={classes.cardCategory}>{'There are no schedule here'}</h6>
+                        </CardBody>
+                    </Card>
+                </GridItem>
+            </GridContainer>)
+        }
+
+
+    }
+    function getSchdule() {
+        const URL = BASE_URL + "schedule";
+        fetch(URL)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setSchdule(result);
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    console.log(error)
+                }
+            )
+    }
     function searchValue(value) {
         setNew1(false);
         setEventSearch(value);
@@ -176,9 +292,10 @@ export default function PlayerPost(props) {
         }
     }
 
-   function handleChange(e) {
-      setteamPlayer([...e.target.value]);
+   function handleChange(e,i) {
+        setteamPlayer([...teamPlayer,e.target.value]);
    }
+
     return (
         <div>
             <SearchBar
@@ -186,6 +303,24 @@ export default function PlayerPost(props) {
                 onChange={(newValue) => searchValue(newValue)}
             />
             {renderData()}
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open2}
+                onClose={handleClose2}
+                closeAfterTransition
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={open2}>
+                    <div className='joinTeam'>
+                {renderS()}
+                    </div></Fade>
+            </Modal>
+            <div>
+            </div>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -272,7 +407,7 @@ export default function PlayerPost(props) {
                                                               <Input
                                                                   labelText={'Player '+(i+1)+' Name'}
                                                                   id="Player name"
-                                                                  onChange={(event) => handleChange(event)}
+                                                                  onBlur={(event) => handleChange(event,i)}
                                                               />
                                                           </GridItem>
                                                       </GridContainer>
@@ -293,6 +428,7 @@ export default function PlayerPost(props) {
                     </div>
                 </Fade>
             </Modal>
+
         </div>
     );
 
