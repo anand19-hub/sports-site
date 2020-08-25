@@ -57,12 +57,12 @@ export default function PlayerProfile(props) {
                             </a>
                         </CardAvatar>
                         <CardBody profile>
-                            <h6 className={classes.cardCategory}>{'k'}</h6>
-                            <h4 className={classes.cardTitle}>Alec Thompson</h4>
+                            <h6 className={classes.cardCategory}>{'Player'}</h6>
+                            <h4 className={classes.cardTitle}>Anand</h4>
                             <p className={classes.description}>
-                                Don{"'"}t be scared of the truth because we need to restart the
-                                human foundation in truth And I love you like Kanye loves Kanye
-                                I love Rick Owens’ bed design but the back is...
+                                Tact is the knack of making a point without making an enemy.
+                                I can calculate the motion of heavenly bodies, but not the madness of people.
+                                If I have done the public any service, it is due to my patient thought.
                             </p>
                             <Button color="primary" round>
                                 Follow

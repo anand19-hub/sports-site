@@ -200,8 +200,7 @@ export default function PlayerPost(props) {
             return  schdule.map((a,index)=>{
                 if(a!==null){
                     return(
-                        <GridContainer key={index}>
-                            <GridItem xs={12} sm={12} md={12}>
+                            <GridItem xs={12} sm={12} md={12} key={index} className={classes.paper}>
                                 <Card profile>
                                     <CardBody profile>
                                         <h6 className={classes.cardCategory}>First Team:{a.first_team}</h6>
@@ -227,7 +226,6 @@ export default function PlayerPost(props) {
                                     </SweetAlert>
                                 </Card>
                             </GridItem>
-                        </GridContainer>
                     )
                 }else{
                     return (  <GridContainer key={index}>
