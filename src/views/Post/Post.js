@@ -55,68 +55,83 @@ export default function Post(props) {
     const [show3,setShow3]=useState(false);
     const [events,setEvents]=useState(null);
     function postDetails() {
-        let org_id=1;
-        if(eName!==''&&eLocation!==''&&price!==''&&desc!==''&&date!==''){
-           let body=JSON.stringify({
-                org_id:org_id,
-               eventName:eName,
-               eventDate:date,
-               eventLocation:eLocation,
-               eventfees:price,
-               eventDescription:desc
-           });
-            return fetch(BASE_URL + "event", {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: body
-            }).then(response => response.json()).then((response)=>{
-              setShow(true);
-            }).catch((error)=>{
-                console.log(error);
-                setShow2(true);
-            })
-        }else{
-            console.log('cant post');
+        try{
+            let org_id=1;
+            if(eName!==''&&eLocation!==''&&price!==''&&desc!==''&&date!==''){
+                let body=JSON.stringify({
+                    org_id:org_id,
+                    eventName:eName,
+                    eventDate:date,
+                    eventLocation:eLocation,
+                    eventfees:price,
+                    eventDescription:desc
+                });
+                return fetch(BASE_URL + "event", {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: body
+                }).then(response => response.json()).then((response)=>{
+                    setShow(true);
+                }).catch((error)=>{
+                    console.log(error);
+                    setShow2(true);
+                })
+            }else{
+                console.log('cant post');
+            }
+        }catch (e) {
+            console.log(e)
         }
+
 
     }
     function deleteEvent(id) {
-        const URL = BASE_URL + "event/"+id;
-        fetch(URL,{
-            method: 'DELETE',
-        })
-            .then(res => res.json())
-            .then(
-                (result) => {
-                   setShow3(true);
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                }
-            )
+        try{
+            const URL = BASE_URL + "event/"+id;
+            fetch(URL,{
+                method: 'DELETE',
+            })
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        setShow3(true);
+                    },
+                    // Note: it's important to handle errors here
+                    // instead of a catch() block so that we don't swallow
+                    // exceptions from actual bugs in components.
+                    (error) => {
+                    }
+                )
+        }catch (e) {
+            console.log(e)
+        }
+
     }
     function editEvent(data1) {
 
     }
     function getEvents() {
-        const URL = BASE_URL + "event";
-        fetch(URL)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setEvents(result);
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                }
-            )
+        try {
+            const URL = BASE_URL + "event";
+            fetch(URL)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        setEvents(result);
+                    },
+                    // Note: it's important to handle errors here
+                    // instead of a catch() block so that we don't swallow
+                    // exceptions from actual bugs in components.
+                    (error) => {
+                    }
+                )
+        }catch (e) {
+            console.log(e)
+        }
+
     }
     function renderData() {
         return events.map((data,index)=>{

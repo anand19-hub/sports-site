@@ -91,40 +91,52 @@ export default function PlayerPost(props) {
         setState({count:parseInt(event.target.value)});
     };
     function getEvents() {
-        const URL = BASE_URL + "event";
-        fetch(URL)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setEvents(result);
-                },
-                (error) => {
-                }
-            )
+        try {
+            const URL = BASE_URL + "event";
+            fetch(URL)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        setEvents(result);
+                    },
+                    (error) => {
+                    }
+                )
+        }catch (e) {
+            console.log(e)
+        }
+
     }
     function postDetails() {
-        let body=JSON.stringify({
-            event_id:eventId,
-            teamName:teamName,
-            captianName:capName,
-            viceCaptianName:vcapName,
-            teamContactNumber:teamCNumber,
-            otherPlayers:teamPlayer.toString()
-        });
-        return fetch(BASE_URL + "event/"+1+"/team", {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: body
-        }).then(response => response.json()).then((response)=>{
-          console.log(response);
-          setShow(true);
-        }).catch((error)=>{
-            console.log(error);
-            setShow2(true);
-        })
+        try{
+            let body=JSON.stringify({
+                event_id:eventId,
+                teamName:teamName,
+                captianName:capName,
+                viceCaptianName:vcapName,
+                teamContactNumber:teamCNumber,
+                otherPlayers:teamPlayer.toString()
+            });
+            return fetch(BASE_URL + "event/"+1+"/team", {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: body
+            }).then(response => response.json()).then((response)=>{
+                console.log(response);
+                setShow(true);
+                setOpen(false);
+            }).catch((error)=>{
+                console.log(error);
+                setShow2(true);
+                setOpen(false);
+            })
+
+        }catch (e) {
+            console.log(e)
+        }
 
     }
     function renderData() {
@@ -245,17 +257,22 @@ export default function PlayerPost(props) {
 
     }
     function getSchdule() {
-        const URL = BASE_URL + "schedule";
-        fetch(URL)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setSchdule(result);
-                },
-                (error) => {
-                    console.log(error)
-                }
-            )
+        try{
+            const URL = BASE_URL + "schedule";
+            fetch(URL)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        setSchdule(result);
+                    },
+                    (error) => {
+                        console.log(error)
+                    }
+                )
+        }catch (e) {
+            console.log(e)
+        }
+
     }
     function searchValue(value) {
         setNew1(false);
