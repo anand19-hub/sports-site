@@ -138,36 +138,41 @@ class Signup extends Component {
     }
 
     playerSignUp() {
-        const {
-            firstname,
-            lastname,
-            email,
-            password,
-        } = this.state;
-        if (firstname !== '' && lastname !== '' && email !== '' && password !== '') {
-            let body = JSON.stringify({
-                firstname: firstname,
-                lastname: lastname,
-                password: password,
-                email: email,
-            });
-            return fetch(BASE_URL + "player", {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: body
-            }).then(response => response.json()).then((response) => {
-                console.log(response);
-                this.setState({show:true});
-            }).catch((error) => {
-                console.log(error);
-                this.setState({show2:true});
-            })
-        } else {
-            console.log('cant post');
+        try{
+            const {
+                firstname,
+                lastname,
+                email,
+                password,
+            } = this.state;
+            if (firstname !== '' && lastname !== '' && email !== '' && password !== '') {
+                let body = JSON.stringify({
+                    firstname: firstname,
+                    lastname: lastname,
+                    password: password,
+                    email: email,
+                });
+                return fetch(BASE_URL + "player", {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: body
+                }).then(response => response.json()).then((response) => {
+                    console.log(response);
+                    this.setState({show:true});
+                }).catch((error) => {
+                    console.log(error);
+                    this.setState({show2:true});
+                })
+            } else {
+                console.log('cant post');
+            }
+        }catch (e) {
+            console.log(e)
         }
+
     }
 
     registerOrg() {

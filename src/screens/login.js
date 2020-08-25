@@ -51,37 +51,42 @@ class Login extends Component {
 
     }
     login(){
-        const {username,password} = this.state;
-       if(username!=='' && password!==''){
-           let body=JSON.stringify({
-              username:username,
-               password:password
-           });
-           return fetch(BASE_URL + "login", {
-               method: 'POST',
-               headers: {
-                   Accept: 'application/json',
-                   'Content-Type': 'application/json',
-               },
-               body: body
-           }).then(response => response.json()).then((response)=>{
-               if(response.role==='Player'){
-                   console.log('player');
-                   this.props.history.push({pathname:'/player/dashboard',state:{details:response}});
-               }else if(response.role==='Org'){
-                   console.log('org');
-                   this.props.history.push({pathname:'/admin/dashboard',state:{details:response}});
+        try{
+            const {username,password} = this.state;
+            if(username!=='' && password!==''){
+                let body=JSON.stringify({
+                    username:username,
+                    password:password
+                });
+                return fetch(BASE_URL + "login", {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: body
+                }).then(response => response.json()).then((response)=>{
+                    if(response.role==='Player'){
+                        console.log('player');
+                        this.props.history.push({pathname:'/player/dashboard',state:{details:response}});
+                    }else if(response.role==='Org'){
+                        console.log('org');
+                        this.props.history.push({pathname:'/admin/dashboard',state:{details:response}});
 
-               }else{
-                   this.setState({show2:true});
-               }
-           }).catch((error)=>{
-               console.log(error);
-               this.setState({show2:true});
-           })
-       }else{
+                    }else{
+                        this.setState({show2:true});
+                    }
+                }).catch((error)=>{
+                    console.log(error);
+                    this.setState({show2:true});
+                })
+            }else{
 
-       }
+            }
+        }catch (e) {
+            console.log(e)
+        }
+
     }
     render() {
         return (
