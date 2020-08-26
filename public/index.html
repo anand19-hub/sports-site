@@ -38,6 +38,20 @@
     <title>Sports Mag</title>
   </head>
   <body>
+
     <div id="root"></div>
+    <script>
+      window.watsonAssistantChatOptions = {
+        integrationID: "a1743e3a-b3da-4ff6-98ac-c1bd00fa3039", // The ID of this integration.
+        region: "us-south", // The region your integration is hosted in.
+        serviceInstanceID: "48e702b6-5591-4714-a5cd-978797527f32", // The ID of your service instance.
+        onLoad: function(instance) { instance.render(); }
+      };
+      setTimeout(function(){
+        const t=document.createElement('script');
+        t.src="https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
+        document.head.appendChild(t);
+      });
+    </script>
   </body>
 </html>

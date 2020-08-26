@@ -90,10 +90,10 @@ export default function PlayerPost(props) {
         console.log(event.target.value);
         setState({count:parseInt(event.target.value)});
     };
-    function getEvents() {
+    async function getEvents() {
         try {
             const URL = BASE_URL + "event";
-            fetch(URL)
+           await fetch(URL)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -107,7 +107,7 @@ export default function PlayerPost(props) {
         }
 
     }
-    function postDetails() {
+   async function postDetails() {
         try{
             let body=JSON.stringify({
                 event_id:eventId,
@@ -117,7 +117,7 @@ export default function PlayerPost(props) {
                 teamContactNumber:teamCNumber,
                 otherPlayers:teamPlayer.toString()
             });
-            return fetch(BASE_URL + "event/"+1+"/team", {
+            return await fetch(BASE_URL + "event/"+1+"/team", {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

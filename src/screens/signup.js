@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {
     Switch,
     Route,
+    Link,
+    withRouter
 } from "react-router-dom";
 import Header from "../components/header";
 import Login from "./login";
@@ -10,8 +12,8 @@ import {BASE_URL} from "../actions";
 import SweetAlert from "react-bootstrap-sweetalert/dist";
 
 class Signup extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             name: 'React',
             firstname: '',
@@ -93,7 +95,7 @@ class Signup extends Component {
                             <div className="form-wrapper">
                                 <button type="button" className="switcher switcher-signup">
                                     Organizer
-                                    <span className="underline"></span>
+                                    <span className="underline"/>
                                 </button>
                                 <div className="form form-signup">
                                     <fieldset>
@@ -162,6 +164,7 @@ class Signup extends Component {
                 }).then(response => response.json()).then((response) => {
                     console.log(response);
                     this.setState({show:true});
+                    this.props.history.push({pathname:'/login'});
                 }).catch((error) => {
                     console.log(error);
                     this.setState({show2:true});
@@ -197,6 +200,7 @@ class Signup extends Component {
             }).then(response => response.json()).then((response) => {
                 console.log(response);
                 this.setState({show:true});
+                this.props.history.push({pathname:'/login'});
             }).catch((error) => {
                 console.log(error);
                 this.setState({show2:true});
@@ -207,4 +211,4 @@ class Signup extends Component {
     }
 }
 
-export default Signup;
+export default withRouter(Signup);

@@ -95,8 +95,8 @@ class Login extends Component {
                 <div className="body">
                 <div className="container-fluid">
                     <Row>
-                        <Col></Col>
-                        <Col></Col>
+                        <Col/>
+                        <Col/>
                         <Col>
                             <div className="login-form">
                                 <div class="social-media">
@@ -134,7 +134,7 @@ class Login extends Component {
                                     </div>
                                 <div class="dont-have-account">
                                     Don't have an account?
-                                    <Link to='/redirect'>Sign Up</Link>
+                                    <Link onClick={()=>this.props.history.push({pathname:'/signup'})}>Sign Up</Link>
                                 </div>
                             </div>
 

@@ -63,8 +63,9 @@ export default function Schedule(props) {
     const [show2,setShow2]=useState(false);
     const [schdule,setSchdule]=useState(false);
     let history=useHistory();
+
     useEffect(() => {
-        if(props.location.state.id!=undefined){
+        if(props.location.state.id!==undefined){
             setIds(props.location.state.id);
         }else{
 
@@ -74,7 +75,7 @@ export default function Schedule(props) {
         getSchdule();
 
     });
-    function postDetails() {
+    async function postDetails() {
         console.log(id,firstTeam,secoundTeam,eDate,eTime,eLocation);
         let body=JSON.stringify({
             event_id:id,
@@ -84,7 +85,7 @@ export default function Schedule(props) {
             eventtime:eTime,
             eventLocation:eLocation
         });
-        return fetch(BASE_URL + "schedule", {
+       return await fetch(BASE_URL + "schedule", {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -93,11 +94,11 @@ export default function Schedule(props) {
             body: body
         }).then(response => response.json()).then((response)=>{
             setShow(true);
+            console.log(response);
         }).catch((error)=>{
             console.log(error);
             setShow2(true);
         })
-
     }
     function getEvents() {
         const URL = BASE_URL + "event/"+1+"/team";
