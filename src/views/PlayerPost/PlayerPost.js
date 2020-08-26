@@ -254,10 +254,10 @@ export default function PlayerPost(props) {
 
 
     }
-    function getSchdule() {
+   async function getSchdule() {
         try{
             const URL = BASE_URL + "schedule";
-            fetch(URL)
+           await fetch(URL)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -272,11 +272,11 @@ export default function PlayerPost(props) {
         }
 
     }
-    function searchValue(value) {
+   async function searchValue(value) {
         setNew1(false);
         setEventSearch(value);
         const URL = BASE_URL + "event";
-        fetch(URL)
+       await fetch(URL)
             .then(res => res.json())
             .then(
                 (result) => {

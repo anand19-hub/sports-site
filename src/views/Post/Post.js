@@ -51,47 +51,85 @@ export default function Post(props) {
     const [date,setDate]=useState('');
     const [desc,setDesc]=useState('');
     const [show,setShow]=useState(false);
+    const [show5,setShow5]=useState(false);
+    const [show6,setShow6]=useState(false);
     const [show2,setShow2]=useState(false);
     const [show3,setShow3]=useState(false);
     const [events,setEvents]=useState(null);
-    function postDetails() {
-        try{
-            let org_id=1;
-            if(eName!==''&&eLocation!==''&&price!==''&&desc!==''&&date!==''){
-                let body=JSON.stringify({
-                    org_id:org_id,
-                    eventName:eName,
-                    eventDate:date,
-                    eventLocation:eLocation,
-                    eventfees:price,
-                    eventDescription:desc
-                });
-                return fetch(BASE_URL + "event", {
-                    method: 'POST',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: body
-                }).then(response => response.json()).then((response)=>{
-                    setShow(true);
-                }).catch((error)=>{
-                    console.log(error);
-                    setShow2(true);
-                })
-            }else{
-                console.log('cant post');
-            }
-        }catch (e) {
-            console.log(e)
-        }
+    const [post,setPost]=useState(true);
+    const [id,setID]=useState(1);
+   async function postDetails() {
+       if(post){
+           try{
+               let org_id=1;
+               if(eName!==''&&eLocation!==''&&price!==''&&desc!==''&&date!==''){
+                   let body=JSON.stringify({
+                       org_id:org_id,
+                       eventName:eName,
+                       eventDate:date,
+                       eventLocation:eLocation,
+                       eventfees:price,
+                       eventDescription:desc
+                   });
+                   return await fetch(BASE_URL + "event", {
+                       method: 'POST',
+                       headers: {
+                           Accept: 'application/json',
+                           'Content-Type': 'application/json',
+                       },
+                       body: body
+                   }).then(response => response.json()).then((response)=>{
+                       setShow(true);
+                   }).catch((error)=>{
+                       console.log(error);
+                       setShow2(true);
+                   })
+               }else{
+                   console.log('cant post');
+               }
+           }catch (e) {
+               console.log(e)
+           }
+       }else{
+           try{
+               let org_id=1;
+               if(eName!==''&&eLocation!==''&&price!==''&&desc!==''&&date!==''){
+                   let body=JSON.stringify({
+                       org_id:org_id,
+                       eventName:eName,
+                       eventDate:date,
+                       eventLocation:eLocation,
+                       eventfees:price,
+                       eventDescription:desc
+                   });
+                   return await fetch(BASE_URL + "event/"+id, {
+                       method: 'PUT',
+                       headers: {
+                           Accept: 'application/json',
+                           'Content-Type': 'application/json',
+                       },
+                       body: body
+                   }).then(response => response.json()).then((response)=>{
+                       setShow5(true);
+                   }).catch((error)=>{
+                       console.log(error);
+                       setShow6(true);
+                   })
+               }else{
+                   console.log('cant post');
+               }
+           }catch (e) {
+               console.log(e)
+           }
+       }
+
 
 
     }
-    function deleteEvent(id) {
+   async function deleteEvent(id) {
         try{
             const URL = BASE_URL + "event/"+id;
-            fetch(URL,{
+          await  fetch(URL,{
                 method: 'DELETE',
             })
                 .then(res => res.json())
@@ -111,7 +149,14 @@ export default function Post(props) {
 
     }
     function editEvent(data1) {
-
+        console.log(data1);
+        seteName(data1.eventName);
+        setDate(data1.eventDate);
+        seteLocation(data1.eventLocation);
+        setPrice(data1.eventfees);
+        setDesc(data1.eventDescription);
+        setID(data1.id);
+        setPost(false);
     }
     function getEvents() {
         try {
@@ -214,11 +259,17 @@ export default function Post(props) {
             <SweetAlert success title="Success!" show={show} onConfirm={()=>{setShow(false)}} onCancel={()=>{setShow(false)}}>
                 Event added
             </SweetAlert>
+            <SweetAlert success title="Success!" show={show5} onConfirm={()=>{setShow5(false)}} onCancel={()=>{setShow5(false)}}>
+                Event updated
+            </SweetAlert>
             <SweetAlert danger title="Success!" show={show3} onConfirm={()=>{setShow3(false)}} onCancel={()=>{setShow3(false)}}>
                 Event Deleted
             </SweetAlert>
             <SweetAlert danger title="Error!" show={show2} onConfirm={()=>{setShow2(false)}} onCancel={()=>{setShow2(false)}}>
                 Event not added
+            </SweetAlert>
+            <SweetAlert danger title="Error!" show={show6} onConfirm={()=>{setShow6(false)}} onCancel={()=>{setShow6(false)}}>
+                Event not updated
             </SweetAlert>
             <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
