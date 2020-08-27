@@ -48,7 +48,6 @@ const useStyles = makeStyles(styles);
 export default function PlayerPost(props) {
 
     useEffect(() => {
-        getSchdule();
         if(new1){
             if(new1){
                 getEvents();
@@ -85,7 +84,7 @@ export default function PlayerPost(props) {
     const handleClose2 = () => {
         setOpen2(false);
     };
-    const [schdule,setSchdule]=useState('');
+    const [schdule,setSchdule]=useState([]);
     const changeMembers = (event) => {
         console.log(event.target.value);
         setState({count:parseInt(event.target.value)});
@@ -109,6 +108,7 @@ export default function PlayerPost(props) {
     }
    async function postDetails() {
         try{
+
             let body=JSON.stringify({
                 event_id:eventId,
                 teamName:teamName,
@@ -139,6 +139,12 @@ export default function PlayerPost(props) {
         }
 
     }
+
+    function setS(id) {
+
+        getSchdule(id)
+    }
+
     function renderData() {
       return  event.map((a,index)=>{
           if(a!==null){
@@ -166,7 +172,7 @@ export default function PlayerPost(props) {
                                   <Button color="primary" className='share' round>
                                       Share
                                   </Button>
-                                  <Button color="info" className='share' round onClick={()=>{setOpen2(true)}}>
+                                  <Button color="info" className='share' round onClick={()=>{setS(a.id)}}>
                                       Schedule
                                   </Button>
                               </CardBody>
@@ -196,7 +202,8 @@ export default function PlayerPost(props) {
 
     }
     function renderS() {
-        if(schdule){
+
+        if(schdule.length>0){
             return  schdule.map((a,index)=>{
                 if(a!==null){
                     return(
@@ -239,8 +246,10 @@ export default function PlayerPost(props) {
                     </GridContainer>)
                 }
 
+
             })
-        }else{
+        }
+        else{
             return (  <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                     <Card profile>
@@ -254,17 +263,18 @@ export default function PlayerPost(props) {
 
 
     }
-   async function getSchdule() {
+   async function getSchdule(id) {
         try{
-            const URL = BASE_URL + "schedule";
+            const URL = BASE_URL + "schedule/"+id;
            await fetch(URL)
                 .then(res => res.json())
                 .then(
                     (result) => {
+                        setOpen2(true);
                         setSchdule(result);
                     },
                     (error) => {
-                        console.log(error)
+                        console.log(error);
                     }
                 )
         }catch (e) {
@@ -304,21 +314,21 @@ export default function PlayerPost(props) {
             />
             {renderData()}
             <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open2}
-                onClose={handleClose2}
-                closeAfterTransition
-                BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <Fade in={open2}>
-                    <div className='joinTeam'>
-                {renderS()}
-                    </div></Fade>
-            </Modal>
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={open2}
+            onClose={handleClose2}
+            closeAfterTransition
+            BackdropProps={{
+                timeout: 500,
+            }}
+        >
+            <Fade in={open2}>
+                <div className='joinTeam'>
+                    {renderS()}
+                </div></Fade>
+        </Modal>
             <div>
             </div>
             <Modal

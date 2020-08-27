@@ -3,7 +3,7 @@ import {
   transition,
   container
 } from "../../material-dashboard-react";
-import car from "../../../../asserts/images/background01.jpg";
+import car from "../../../../asserts/images/475974.jpg";
 const appStyle = theme => ({
   wrapper: {
     position: "relative",
