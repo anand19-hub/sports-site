@@ -1,7 +1,7 @@
 {
-  "name": "material-dashboard-react",
-  "version": "1.9.0",
-  "description": "Material Dashboard React. Coded by Creative Tim",
+  "name": "sport-app",
+  "version": "1.0.0",
+  "description": "Anand Sri's Sport app",
   "private": false,
   "main": "dist/index.js",
   "dependencies": {
@@ -24,7 +24,8 @@
     "react-google-maps": "9.4.5",
     "react-router-dom": "5.2.0",
     "react-scripts": "3.4.1",
-    "react-swipeable-views": "0.13.9"
+    "react-swipeable-views": "0.13.9",
+    "web-social-share": "^6.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,15 +40,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/creativetimofficial/material-dashboard-react.git"
+    "url": ""
   },
   "keywords": [],
-  "author": "Creative Tim <hello@creative-tim.com> (https://www.creative-tim.com/)",
-  "license": "MIT",
+  "author": "Anand Sri",
+  "license": "srianand827@gmail.com",
   "bugs": {
-    "url": "https://github.com/creativetimofficial/material-dashboard-react/issues"
+    "url": ""
   },
-  "homepage": "https://creativetimofficial.github.io/material-dashboard-react/#/dashboard",
+  "homepage": "",
   "optionalDependencies": {
     "@types/googlemaps": "3.39.6",
     "@types/markerclustererplus": "2.1.33",

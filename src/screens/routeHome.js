@@ -7,15 +7,17 @@ import Home from "./home";
 import Signup from "./signup";
 import Login from "./login";
 import contact from "../components/contact";
+import player from "./player";
 const hist = createBrowserHistory();
 class routeHome extends Component{
     render() {
-        return( <Router history={hist}>
+        return(
+            <Router history={hist}>
             <Switch>
-
                 <Route path="/home" component={Home} />
                 <Route path="/admin" component={Admin} />
                 <Route path="/player" component={Player} />
+                <Route path="/play" component={player} />
                 <Route exact path="/home">
                     <Home name={'red'}/>
                 </Route>

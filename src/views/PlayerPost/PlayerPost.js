@@ -145,6 +145,12 @@ export default function PlayerPost(props) {
         getSchdule(id)
     }
 
+    function shareSocial() {
+       return(
+           <web-social-share/>
+    )
+    }
+
     function renderData() {
       return  event.map((a,index)=>{
           if(a!==null){
@@ -169,7 +175,9 @@ export default function PlayerPost(props) {
                                   <Button color="secondary" className='comments' round>
                                       Comments
                                   </Button>
-                                  <Button color="primary" className='share' round>
+                                  <Button color="primary" className='share'  onClick={()=>{
+                                      shareSocial()
+                                  }} round>
                                       Share
                                   </Button>
                                   <Button color="info" className='share' round onClick={()=>{setS(a.id)}}>
