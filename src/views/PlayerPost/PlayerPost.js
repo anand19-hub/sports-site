@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
 import Button from "../../components/CustomButtons/Button.js";
@@ -18,6 +18,36 @@ import {BASE_URL} from "../../actions";
 import SearchBar from "material-ui-search-bar";
 import Input from "@material-ui/core/Input/Input";
 import SweetAlert from "react-bootstrap-sweetalert/dist";
+import {
+    EmailShareButton,
+    FacebookShareButton, FacebookShareCount,
+    LinkedinShareButton,
+    TwitterShareButton,
+    WhatsappShareButton,
+} from "react-share";
+import {
+    EmailIcon,
+    FacebookIcon,
+    FacebookMessengerIcon,
+    InstapaperIcon,
+    LineIcon,
+    LinkedinIcon,
+    LivejournalIcon,
+    MailruIcon,
+    OKIcon,
+    PinterestIcon,
+    PocketIcon,
+    RedditIcon,
+    TelegramIcon,
+    TumblrIcon,
+    TwitterIcon,
+    ViberIcon,
+    VKIcon,
+    WeiboIcon,
+    WhatsappIcon,
+    WorkplaceIcon
+} from "react-share";
+
 const styles = {
     cardCategoryWhite: {
         color: "rgba(255,255,255,.62)",
@@ -48,8 +78,8 @@ const useStyles = makeStyles(styles);
 export default function PlayerPost(props) {
 
     useEffect(() => {
-        if(new1){
-            if(new1){
+        if (new1) {
+            if (new1) {
                 getEvents();
 
             }
@@ -63,17 +93,21 @@ export default function PlayerPost(props) {
     const [state, setState] = React.useState({
         count: 0,
     });
-    const [event,setEvents]=useState([null]);
-    const [eventId,setEventId]=useState('');
-    const [eventSearch,setEventSearch]=useState('');
-    const [new1,setNew1]=useState(true);
+    const [event, setEvents] = useState([null]);
+    const [show5, setShow5] = useState(false);
+    const [options1, setOptions1] = useState([null]);
+    const [eventId, setEventId] = useState('');
+    const [eventSearch, setEventSearch] = useState('');
+    const [new1, setNew1] = useState(true);
     const [teamName, setteamName] = React.useState('');
     const [capName, setcapName] = React.useState('');
     const [vcapName, setvcapName] = React.useState('');
     const [teamCNumber, setteamCNumber] = React.useState('');
     const [teamPlayer, setteamPlayer] = React.useState([]);
-    const [show,setShow]=useState(false);
-    const [show2,setShow2]=useState(false);
+    const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
+    const [eNm, setEname] = useState('');
+    const [hash, setHash] = useState('');
     const handleOpen = (id) => {
         setOpen(true);
         setEventId(id);
@@ -84,15 +118,19 @@ export default function PlayerPost(props) {
     const handleClose2 = () => {
         setOpen2(false);
     };
-    const [schdule,setSchdule]=useState([]);
+    const handleClose3 = () => {
+        setShow5(false);
+    };
+    const [schdule, setSchdule] = useState([]);
     const changeMembers = (event) => {
         console.log(event.target.value);
-        setState({count:parseInt(event.target.value)});
+        setState({count: parseInt(event.target.value)});
     };
+
     async function getEvents() {
         try {
             const URL = BASE_URL + "event";
-           await fetch(URL)
+            await fetch(URL)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -101,40 +139,41 @@ export default function PlayerPost(props) {
                     (error) => {
                     }
                 )
-        }catch (e) {
+        } catch (e) {
             console.log(e)
         }
 
     }
-   async function postDetails() {
-        try{
 
-            let body=JSON.stringify({
-                event_id:eventId,
-                teamName:teamName,
-                captianName:capName,
-                viceCaptianName:vcapName,
-                teamContactNumber:teamCNumber,
-                otherPlayers:teamPlayer.toString()
+    async function postDetails() {
+        try {
+
+            let body = JSON.stringify({
+                event_id: eventId,
+                teamName: teamName,
+                captianName: capName,
+                viceCaptianName: vcapName,
+                teamContactNumber: teamCNumber,
+                otherPlayers: teamPlayer.toString()
             });
-            return await fetch(BASE_URL + "event/"+1+"/team", {
+            return await fetch(BASE_URL + "event/" + 1 + "/team", {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: body
-            }).then(response => response.json()).then((response)=>{
+            }).then(response => response.json()).then((response) => {
                 console.log(response);
                 setShow(true);
                 setOpen(false);
-            }).catch((error)=>{
+            }).catch((error) => {
                 console.log(error);
                 setShow2(true);
                 setOpen(false);
             })
 
-        }catch (e) {
+        } catch (e) {
             console.log(e)
         }
 
@@ -145,105 +184,125 @@ export default function PlayerPost(props) {
         getSchdule(id)
     }
 
-    function shareSocial() {
-       return(
-           <web-social-share/>
-    )
+
+    function shareSoical(Name,des) {
+        setShow5(true);
+        setEname(Name);
+        setHash(des);
     }
 
     function renderData() {
-      return  event.map((a,index)=>{
-          if(a!==null){
-              return(
-                  <GridContainer key={index}>
-                      <GridItem xs={12} sm={12} md={12}>
-                          <Card profile>
-                              <CardBody profile>
-                                  <h6 className={classes.cardCategory}>Event Name:{a.eventName}</h6>
-                                  <p xs={12} sm={12} md={4}>
-                                     Event Date: {a.eventDate}
-                                  </p>
-                                  <p xs={12} sm={12} md={4}>
-                                      Event Location:   {a.eventLocation}
-                                  </p>
-                                  <p className={classes.description}>
-                                      Event Description:    {a.eventDescription}
-                                  </p>
-                                  <Button color="#2196f3" className='join' onClick={()=>handleOpen(a.id)} round>
-                                      Join
-                                  </Button>
-                                  <Button color="secondary" className='comments' round>
-                                      Comments
-                                  </Button>
-                                  <Button color="primary" className='share'  onClick={()=>{
-                                      shareSocial()
-                                  }} round>
-                                      Share
-                                  </Button>
-                                  <Button color="info" className='share' round onClick={()=>{setS(a.id)}}>
-                                      Schedule
-                                  </Button>
-                              </CardBody>
-                              <SweetAlert success title="Success!" show={show} onConfirm={()=>{setShow(false)}} onCancel={()=>{setShow(false)}}>
-                                  Team joined
-                              </SweetAlert>
-                              <SweetAlert danger title="sorry!" show={show2} onConfirm={()=>{setShow2(false)}} onCancel={()=>{setShow2(false)}}>
-                                  Team not joined
-                              </SweetAlert>
-                          </Card>
-                      </GridItem>
-                  </GridContainer>
-              )
-          }else{
-             return (  <GridContainer key={index}>
-                 <GridItem xs={12} sm={12} md={12}>
-                     <Card profile>
-                         <CardBody profile>
-                             <h6 className={classes.cardCategory}>{'There are no posts here'}</h6>
-                         </CardBody>
-                     </Card>
-                 </GridItem>
-             </GridContainer>)
-          }
+        return event.map((a, index) => {
+            if (a !== null) {
+                return (
+                    <GridContainer key={index} style={{paddingLeft:220,paddingRight:220}}>
+                        <GridItem xs={12} sm={12} md={12}>
+                            <Card profile>
+                                <CardBody profile>
+                                    <h6 className={classes.cardCategory} style={{fontFamily:'Poppins-Regular',fontSize:18}}>Event Name: {a.eventName}</h6>
+                                    <p xs={12} sm={12} md={4} style={{fontFamily:'Poppins-Regular'}}>
+                                        Event Date: {a.eventDate}
+                                    </p>
+                                    <p xs={12} sm={12} md={4} style={{fontFamily:'Poppins-Regular'}}>
+                                        Event Location: {a.eventLocation}
+                                    </p>
+                                    <p className={classes.description} style={{fontFamily:'Poppins-Regular'}}>
+                                        Event Description: {a.eventDescription}
+                                    </p>
+                                    <Button color="#2196f3" className='join' onClick={() => handleOpen(a.id)} round>
+                                        Join
+                                    </Button>
+                                    <Button color="secondary" className='comments' round>
+                                        Comments
+                                    </Button>
+                                    <Button color="primary" className='share' onClick={() => {
+                                       shareSoical(a.eventName,a.eventDescription)
+                                    }} round>
+                                        Share
+                                    </Button>
+                                    <Button color="info" className='share' round onClick={() => {
+                                        setS(a.id)
+                                    }}>
+                                        Schedule
+                                    </Button>
+                                </CardBody>
+                                <SweetAlert success title="Success!" show={show} onConfirm={() => {
+                                    setShow(false)
+                                }} onCancel={() => {
+                                    setShow(false)
+                                }}>
+                                    Team joined
+                                </SweetAlert>
+                                <SweetAlert danger title="sorry!" show={show2} onConfirm={() => {
+                                    setShow2(false)
+                                }} onCancel={() => {
+                                    setShow2(false)
+                                }}>
+                                    Team not joined
+                                </SweetAlert>
+                            </Card>
+                        </GridItem>
+                    </GridContainer>
+                )
+            } else {
+                return (<GridContainer key={index}>
+                    <GridItem xs={12} sm={12} md={12}>
+                        <Card profile>
+                            <CardBody profile>
+                                <h6 className={classes.cardCategory}>{'There are no posts here'}</h6>
+                            </CardBody>
+                        </Card>
+                    </GridItem>
+                </GridContainer>)
+            }
 
-      })
+        })
 
     }
+
     function renderS() {
 
-        if(schdule.length>0){
-            return  schdule.map((a,index)=>{
-                if(a!==null){
-                    return(
-                            <GridItem xs={12} sm={12} md={12} key={index} className={classes.paper}>
-                                <Card profile>
-                                    <CardBody profile>
-                                        <h6 className={classes.cardCategory}>First Team:{a.first_team}</h6>
-                                        <h6 className={classes.cardCategory}>Second Team:{a.second_team}</h6>
-                                        <p xs={12} sm={12} md={4}>
-                                            Event Date: {a.eventDate}
-                                        </p>
-                                        <p xs={12} sm={12} md={4}>
-                                            Event Location:   {a.eventDate}
-                                        </p>
-                                        <p className={classes.description}>
-                                            Event Description:    {a.eventtime}
-                                        </p>
-                                        <p className={classes.description}>
-                                            Event Description:    {a.eventLocation}
-                                        </p>
-                                    </CardBody>
-                                    <SweetAlert success title="Success!" show={show} onConfirm={()=>{setShow(false)}} onCancel={()=>{setShow(false)}}>
-                                        Team joined
-                                    </SweetAlert>
-                                    <SweetAlert danger title="sorry!" show={show2} onConfirm={()=>{setShow2(false)}} onCancel={()=>{setShow2(false)}}>
-                                        Team not joined
-                                    </SweetAlert>
-                                </Card>
-                            </GridItem>
+        if (schdule.length > 0) {
+            return schdule.map((a, index) => {
+                if (a !== null) {
+                    return (
+                        <GridItem xs={12} sm={12} md={12} key={index} className={classes.paper}>
+                            <Card profile>
+                                <CardBody profile>
+                                    <h6 className={classes.cardCategory}>First Team:{a.first_team}</h6>
+                                    <h6 className={classes.cardCategory}>Second Team:{a.second_team}</h6>
+                                    <p xs={12} sm={12} md={4}>
+                                        Event Date: {a.eventDate}
+                                    </p>
+                                    <p xs={12} sm={12} md={4}>
+                                        Event Location: {a.eventDate}
+                                    </p>
+                                    <p className={classes.description}>
+                                        Event Description: {a.eventtime}
+                                    </p>
+                                    <p className={classes.description}>
+                                        Event Description: {a.eventLocation}
+                                    </p>
+                                </CardBody>
+                                <SweetAlert success title="Success!" show={show} onConfirm={() => {
+                                    setShow(false)
+                                }} onCancel={() => {
+                                    setShow(false)
+                                }}>
+                                    Team joined
+                                </SweetAlert>
+                                <SweetAlert danger title="sorry!" show={show2} onConfirm={() => {
+                                    setShow2(false)
+                                }} onCancel={() => {
+                                    setShow2(false)
+                                }}>
+                                    Team not joined
+                                </SweetAlert>
+                            </Card>
+                        </GridItem>
                     )
-                }else{
-                    return (  <GridContainer key={index}>
+                } else {
+                    return (<GridContainer key={index}>
                         <GridItem xs={12} sm={12} md={12}>
                             <Card profile>
                                 <CardBody profile>
@@ -256,9 +315,8 @@ export default function PlayerPost(props) {
 
 
             })
-        }
-        else{
-            return (  <GridContainer>
+        } else {
+            return (<GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                     <Card profile>
                         <CardBody profile>
@@ -271,10 +329,11 @@ export default function PlayerPost(props) {
 
 
     }
-   async function getSchdule(id) {
-        try{
-            const URL = BASE_URL + "schedule/"+id;
-           await fetch(URL)
+
+    async function getSchdule(id) {
+        try {
+            const URL = BASE_URL + "schedule/" + id;
+            await fetch(URL)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -285,34 +344,35 @@ export default function PlayerPost(props) {
                         console.log(error);
                     }
                 )
-        }catch (e) {
+        } catch (e) {
             console.log(e)
         }
 
     }
-   async function searchValue(value) {
+
+    async function searchValue(value) {
         setNew1(false);
         setEventSearch(value);
         const URL = BASE_URL + "event";
-       await fetch(URL)
+        await fetch(URL)
             .then(res => res.json())
             .then(
                 (result) => {
-                    setEvents(result.filter((data)=>{
-                        return value.toLocaleLowerCase()===data.eventName.toLocaleLowerCase() || value.toLocaleLowerCase() ===data.eventLocation.toLocaleLowerCase()
+                    setEvents(result.filter((data) => {
+                        return value.toLocaleLowerCase() === data.eventName.toLocaleLowerCase() || value.toLocaleLowerCase() === data.eventLocation.toLocaleLowerCase()
                     }));
                 },
                 (error) => {
                 }
             );
-        if(value===''){
-           setNew1(true);
+        if (value === '') {
+            setNew1(true);
         }
     }
 
-   function handleChange(e,i) {
-        setteamPlayer([...teamPlayer,e.target.value]);
-   }
+    function handleChange(e, i) {
+        setteamPlayer([...teamPlayer, e.target.value]);
+    }
 
     return (
         <div>
@@ -322,21 +382,45 @@ export default function PlayerPost(props) {
             />
             {renderData()}
             <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open2}
-            onClose={handleClose2}
-            closeAfterTransition
-            BackdropProps={{
-                timeout: 500,
-            }}
-        >
-            <Fade in={open2}>
-                <div className='joinTeam'>
-                    {renderS()}
-                </div></Fade>
-        </Modal>
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open2}
+                onClose={handleClose2}
+                closeAfterTransition
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={open2}>
+                    <div className='joinTeam'>
+                        {renderS()}
+                    </div>
+                </Fade>
+            </Modal>
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={show5}
+                onClose={handleClose3}
+                closeAfterTransition
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={show5}>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={12}>
+                            <FacebookShareButton quote={eNm} hashtag={'#'+eNm} url={'https://web.facebook.com/?_rdc=1&_rdr'}><FacebookIcon size={32} round={true} /></FacebookShareButton>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={12}>
+                            <WhatsappShareButton title={eNm} separator={hash} url={'https://web.whatsapp.com/'}><WhatsappIcon size={32} round={true} /></WhatsappShareButton>
+                        </GridItem>
+                    </GridContainer>
+
+                </Fade>
+            </Modal>
             <div>
             </div>
             <Modal
@@ -397,7 +481,7 @@ export default function PlayerPost(props) {
                                                         />
                                                     </GridItem>
                                                 </GridContainer>
-                                                <FormControl className={classes.formControl} style={{marginTop:10}}>
+                                                <FormControl className={classes.formControl} style={{marginTop: 10}}>
                                                     <NativeSelect
                                                         value={state.count}
                                                         onChange={changeMembers}
@@ -418,26 +502,28 @@ export default function PlayerPost(props) {
                                                 </FormControl>
                                             </GridItem>
                                             {[...Array(state.count)].map((x, i) =>
-                                              <div key={i}>
-                                                  <CardBody >
-                                                      <GridContainer>
-                                                          <GridItem xs={6} sm={6} md={6}>
-                                                              <Input
-                                                                  labelText={'Player '+(i+1)+' Name'}
-                                                                  id="Player name"
-                                                                  onBlur={(event) => handleChange(event,i)}
-                                                              />
-                                                          </GridItem>
-                                                      </GridContainer>
-                                                  </CardBody>
-                                              </div>
+                                                <div key={i}>
+                                                    <CardBody>
+                                                        <GridContainer>
+                                                            <GridItem xs={6} sm={6} md={6}>
+                                                                <Input
+                                                                    labelText={'Player ' + (i + 1) + ' Name'}
+                                                                    id="Player name"
+                                                                    onBlur={(event) => handleChange(event, i)}
+                                                                />
+                                                            </GridItem>
+                                                        </GridContainer>
+                                                    </CardBody>
+                                                </div>
                                             )
                                             }
 
                                         </GridContainer>
                                     </CardBody>
                                     <CardFooter>
-                                        <Button color="primary" onClick={()=>{postDetails()}}>Add</Button>
+                                        <Button color="primary" onClick={() => {
+                                            postDetails()
+                                        }}>Add</Button>
                                         <Button className='closeModel' onClick={handleClose}>Cancel</Button>
                                     </CardFooter>
                                 </Card>
