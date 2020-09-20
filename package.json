@@ -25,6 +25,7 @@
     "react-router-dom": "5.2.0",
     "react-scripts": "3.4.1",
     "react-share": "^4.2.1",
+    "react-social-login": "^3.4.9",
     "react-swipeable-views": "0.13.9",
     "web-social-share": "^6.4.1"
   },

@@ -7,6 +7,7 @@ import {
     Link,
     withRouter
 } from "react-router-dom";
+import SocialButton from './SocialButton';
 import {Col, Row} from "react-bootstrap";
 import Signup from "./signup";
 import {BASE_URL} from "../actions";
@@ -14,6 +15,7 @@ import Header from "../components/header";
 import SweetAlert from "react-bootstrap-sweetalert/dist";
 const img1 = require('../asserts/images/fb.png');
 const img2 = require('../asserts/images/google.png');
+
 class Login extends Component {
 
     constructor(props) {
@@ -69,6 +71,7 @@ class Login extends Component {
                     if(response.role==='Player'){
                         console.log('player');
                         this.props.history.push({pathname:'/player/dashboard',state:{details:response}});
+                        console.log(response);
                     }else if(response.role==='Org'){
                         console.log('org');
                         this.props.history.push({pathname:'/admin/dashboard',state:{details:response}});
@@ -88,6 +91,20 @@ class Login extends Component {
         }
 
     }
+    handleSocialLogin = (user) => {
+        console.log(user);
+        if(user){
+            this.props.history.push({pathname:'/player/dashboard',state:{details:{role:'player',id:'1'}}});
+        }
+
+    };
+
+     handleSocialLoginFailure = (err) => {
+        console.error(err)
+         if(err){
+             this.setState({show2:true});
+         }
+    };
     render() {
         return (
             <div>
@@ -100,8 +117,14 @@ class Login extends Component {
                         <Col>
                             <div className="login-form">
                                 <div class="social-media">
-                                    <button className="fb"  onClick={()=>console.log('hi')}><img src={img1} alt=""/></button>
-                                    <button className="google"><img src={img2} alt=""/></button>
+                                    <SocialButton className="fb"   provider='facebook'
+                                                  appId=''
+                                                  onLoginSuccess={this.handleSocialLogin()}
+                                                  onLoginFailure={this.handleSocialLoginFailure()}><img src={img1} alt=""/></SocialButton>
+                                    <SocialButton className="google"  provider='google'
+                                                  appId=''
+                                                  onLoginSuccess={this.handleSocialLogin()}
+                                                  onLoginFailure={this.handleSocialLoginFailure()}><img src={img2} alt=""/></SocialButton>
 
                                 </div>
                                 <h6>Sign In</h6>
